@@ -30,7 +30,7 @@ const ListShows = () => {
     }
     useEffect(() => {
         getAllShows();
-    })
+    },[])
   return !loading?(
     <>
     <Title text1='Llist' text2='shows'/>

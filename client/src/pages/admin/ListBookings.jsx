@@ -31,7 +31,7 @@ const [isLoading, setIsLoading] = useState(true);
          <th className="p-2 font-medium" >Seats</th>
          <th className="p-2 font-medium">Amount</th>
      </tr>
-</thead>|
+</thead>
 
 <tbody className= "text-sm font-light">
      {bookings.map((item, index) => (

@@ -11,3 +11,10 @@ npm install @clerk/clerk-react
 .env add clerk apikey
 
 https://prebuiltui.com/component/footer
+
+//server  
+npm i express cors dotenv mongoose axios cloudinary
+
+npm  i nodemon --save-dev
+
+npm install inngest
