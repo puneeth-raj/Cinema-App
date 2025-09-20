@@ -8,8 +8,8 @@ export const getNowPlayingMovies = async(req, res) =>{
             headers: {Authorization : `Bearer ${process.env.TMDB_API_KEY}`}
         })
 
-        const movies = data.results;
-        res.json({success:true, movies:movies})
+        const movies = data.results
+        res.json({success:true, movies: movies})
     }  catch(error){
         console.error(error);
          res.json({success:false, message:error.message})
