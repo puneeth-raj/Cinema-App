@@ -5,7 +5,7 @@ import Booking from "../models/Booking.js"
 import Show from "../models/Show.js"
 
 const checkSeatsAvailability = async (showId, selectedSeats) => {
-console.log(selectedSeats, showId)
+
     try {
        const showData = await Show.findById(showId)
        if(!showData) return false
