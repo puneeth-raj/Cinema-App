@@ -37,7 +37,7 @@ export const addShow = async(req, res) =>{
 
         const movieApiData = movieDetailsResponse.data;
         const movieCreditData = moveCreditsResponse.data;
-// console.log(movieApiData, movieCreditData)
+
         const movieDetails = {
             _id: movieId,
             title: movieApiData.title,
@@ -115,14 +115,13 @@ export const getShow = async (req, res ) => {
 
         shows.forEach((show) => {
             const date = show.showDateTime.toISOString().split("T")[0]
-            if(!dateTime[data]){
-                dateTime[data] = []
+            if(!dateTime[date]){
+                dateTime[date] = []
             }
 
             dateTime[date].push({time: show.showDateTime, showId: show._id})
         })
-
-                res.json({success: true, movie, dateTime})
+        res.json({success: true, movie, dateTime})
 
     } catch (error) {
         res.json({success: false, shows: error.message})

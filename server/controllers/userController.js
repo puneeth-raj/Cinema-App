@@ -6,7 +6,7 @@ import Movie from "../models/Movies.js"
 // API controller function got get user bookings
 export const getUserBookings = async (req, res) => {
     try {
-        const user = req.auth().userId()
+        const user = req.auth().userId
 
         const bookings = await Booking.find({user}).populate({
             path: "show",
@@ -34,7 +34,7 @@ try {
     if(!user.privateMetadata.favorites.includes(movieId)){
         user.privateMetadata.favorites.push(movieId)
     }else{
-        ser.privateMetadata.favorites = ser.privateMetadata.favorites.filter(item => item !== movieId)
+        user.privateMetadata.favorites = user.privateMetadata.favorites.filter(item => item !== movieId)
     }
 
         await clerkClient.users.updateUserMetadata(userId, {privateMetadata : user.privateMetadata})
@@ -50,7 +50,7 @@ try {
 export const getFavorites = async (req, res) => {
 try {
     const user =await clerkClient.users.getUser(req.auth().userId)
-    const getUser  = user.privateMetadata.favorites
+    const favorites  = user.privateMetadata.favorites
 
     //getting movies from database
 

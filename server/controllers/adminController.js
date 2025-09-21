@@ -37,7 +37,7 @@ export const getDashboardData = async (req, res) =>{
 
 export const getAllShows = async (req, res) =>{
     try {
-        const shows = await show.find({showDateTime: {$gte: new Date()}}).populate('movie').sort({ showDateTime: 1})
+        const shows = await Show.find({showDateTime: {$gte: new Date()}}).populate('movie').sort({ showDateTime: 1})
 
         res.json({success: true, shows})
 
@@ -57,7 +57,7 @@ export const getAllShows = async (req, res) =>{
             populate: {path: "movie"}
         }).sort({ showDateTime: 1})
 
-        res.json({success: true, booking})
+        res.json({success: true, bookings})
 
     } catch (error) {
         console.error(error)

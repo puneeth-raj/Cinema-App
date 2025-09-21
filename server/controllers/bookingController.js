@@ -1,10 +1,11 @@
 // function to check availabily of selected Seats for a movie
 
+import { inngest } from "../inngest/index.js"
 import Booking from "../models/Booking.js"
 import Show from "../models/Show.js"
 
 const checkSeatsAvailability = async (showId, selectedSeats) => {
-
+console.log(selectedSeats, showId)
     try {
        const showData = await Show.findById(showId)
        if(!showData) return false
@@ -15,7 +16,7 @@ const checkSeatsAvailability = async (showId, selectedSeats) => {
 
        return !isAnySeatTaken
     } catch (error) {
-        console.log(error.message)
+        console.error(error.message)
         return false
     }
 }
@@ -52,11 +53,20 @@ export const createBooking = async (req, res) =>{
 
         await showData.save()
 
-        // Stripe gateway Initialize
+        // Stripe gateway Initialize not written
+
+        // Run Inngest scheduler function to check payment status after 10 minutes
+        await inngest.send({
+            name:"app/checkpayment",
+            data:{
+                bookingId: booking._id.toString()
+            }
+        })
+
 
         res.json({success: true, message: 'booked succesfully'})
     } catch (error) {
-        console.log(error.message)
+        console.error(error.message)
         res.json({success: false, message: error.message})
         
     }
@@ -71,7 +81,7 @@ export const getOccupiedSeats = async (req, res) =>{
 
         res.json({success: true, occupiedSeats})
     } catch (error) {
-        console.log(error.message)
+        console.error(error.message)
         res.json({success: false, message: error.message})
     }
 }

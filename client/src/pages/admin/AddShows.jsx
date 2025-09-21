@@ -18,7 +18,7 @@ const AddShows = () => {
   const [dateTimeInput, setDateTimeInput] = useState("");
   const [showPrice, setShowPrice] = useState("");
   
-  const [addingShow, setAddingShow] = useEffect(false)
+  const [addingShow, setAddingShow] = useState(false)
 
   const fetchNowPlayingMovies = async () => {
     // setNowPlayingMovies(dummyShowsData);
@@ -67,22 +67,22 @@ const AddShows = () => {
 
     try {
       setAddingShow(true)
-      if(!selectedMovie || Object.keys(dataTimeSelection).length ===0 || !showPrice){
+      if(!selectedMovie || Object.keys(dateTimeSelection).length ===0 || !showPrice){
 return toast("Missing required fields")
       }
 
-      const showInput = Object.entries(dateTimeSelection).map(([date, time]) =>({date, time}))
+      const showsInput = Object.entries(dateTimeSelection).map(([date, time]) =>({date, time}))
 
       const payload = {
         movieId : selectedMovie,
-        showInput,
+        showsInput,
         showPrice: Number(showPrice)
       }
 
-      const {data} = await axios.post('/api/show/add', {
+      const {data} = await axios.post('/api/show/add',payload, {
                  headers:{Authorization : `Bearer ${await getToken()}`}
             })
-
+console.log(data)
             if(data.success){
               toast.success(data.message)
               setSelectedMovie(null)
